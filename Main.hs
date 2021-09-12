@@ -8,7 +8,7 @@
 -- sums (x : y : ys) = x : sums (x + y : ys)
 -- sums xs           = xs
 
-main = print (pow2 3)®
+main = print (pow2 3)
 
 -- pow       :: Int -> Int -> Int
 -- x `pow` 0 = 1
