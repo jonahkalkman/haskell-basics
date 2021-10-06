@@ -1,20 +1,37 @@
--- main = print (map thrice (sums [0..2]))
+-- or recursive and with foldr
 
--- main = interact (intercalate " / " . map reverse.lines)
-  -- where work text = intercalate " / " (map reverse (lines text))
+or' :: [Bool] -> Bool
+-- or' []     = False
+-- or' (x:xs) = x || or' xs
 
--- thrice x = [x, x, x]
+or' = foldr (||) False
 
--- sums (x : y : ys) = x : sums (x + y : ys)
--- sums xs           = xs
+-- concatMap recursive 
 
-main = print (pow2 3)
+concatMap' :: (a -> [b]) -> [a] -> [b]
+concatMap' _ [] = []
+concatMap' f (x:xs) = f x ++ concatMap' f xs
 
--- pow       :: Int -> Int -> Int
--- x `pow` 0 = 1
--- x `pow` n | even n    = let y = x `pow` (n `div` 2) in y * y
---           | otherwise = x  * (x `pow` (n-1))
+-- unlines recursive
 
-pow2   :: Int -> Int
-pow2 0 = 1
-pow2 n = 2 * pow2 (n - 1)
+unlines' :: [String] -> String
+unlines' [] = []
+unlines' (x:xs) = x ++ "\n" ++ unlines' xs
+
+-- unzip recursive
+
+unzip' :: [(a,b)] -> ([a],[b])
+unzip' [] = ([],[])
+unzip' ((xt,yt):xs) = (xt : first, yt : second)
+                        where (first,second) = unzip' xs
+
+-- merge recursive
+
+merge' :: Ord a => [a] -> [a] -> [a]
+merge' [] ys = ys
+merge' xs [] = xs
+merge' l@(x : xs) r@(y : ys) | x <= y    = x : merge' xs r
+                             | otherwise = y : merge' l ys
+
+-- MAIN 
+main = print(or' [True, False])
