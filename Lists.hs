@@ -35,6 +35,16 @@ myLength :: [a] -> Int
 myLength [] = 0
 myLength (_:xs) = 1 + myLength xs
 
-myLength' = foldr (\x n -> n + 1) 0
+-- (*) Reverse a list.
 
-main = print(myLength' [1,2,3,4])
+myReverse :: [a] -> [a]
+myReverse [] = []
+myReverse (x:xs) = myReverse xs ++ [x]
+
+type Board = [[Char]]
+calcBoardPos :: Board -> Board
+calcBoardPos = map (map add)
+                  where
+                    add x = x + 1
+
+main = print(calcBoardPos [[1,2,3,4], [1,2,3,4]])

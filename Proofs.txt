@@ -1,0 +1,349 @@
+Def map:
+map f [] = []
+map f (x:xs) = f x : map f xs
+
+Def length:
+length [] = 0
+length (x:xs) = 1 + length xs
+
+Def dot-notation:
+f . g x = f(g x)
+
+Proof: 
+length . map f = length on Lists
+
+Cases: [] and (x:xs)
+
+Base case:
+
+length . map f []
+= def dot-notation
+length (map f [])
+= def 1 map
+length ([])
+= remove sugar
+length []
+
+Induction case:
+IH = length . map f xs = length xs
+
+length . map f (x:xs)
+= def dot-notation
+length(map f (x:xs))
+= def 2, map
+length (f x : map f xs)
+= def length
+1 + length (map f xs)
+= IH xs
+1 +  length xs
+= def length
+length (x:xs)
+
+Defs:
+
+(++) [] ys = ys
+(++) (x:xs) ys = x : (xs ++ ys)
+
+Proof: length (xs ++ ys) = length xs + length ys
+
+Base case:
+length ([] ++ ys)
+= def (++)
+length ys
+= def (+)
+0 + length ys 
+= def length first
+length [] + length ys
+
+Induction case:
+IH = length (xs ++ ys) = length xs + length ys
+
+length ((x:xs) ++ ys)
+= def. (++)
+length (x : (xs ++ ys))
+= def. length
+1 + length (xs ++ ys)
+= IH
+1 + length xs + length ys
+= def. 2 length
+length (x:xs) + length ys
+
+Defs:
+
+concat [] = []
+concat (x:xs) = x ++ concat xs
+
+sum [] = 0
+sum (x:xs) = x + sum xs
+
+Proof: length . concat = sum . map length
+
+Base case:
+length . concat
+= apply arguments
+length . concat []
+= def. dot-notation
+length(concat [])
+= def. 1 concat
+length []
+= def. 1 length
+0
+= def. sum
+sum([])
+= def. 1 map
+sum(map length [])
+= def. dot-notation
+sum . map length []
+
+Induction case:
+IH = length . concat (x:xs) = sum . map length (x:xs)
+
+length . concat (x:xs)
+= def. dot-notation
+length(concat (x:xs))
+= def. 2 concat
+length(x ++ concat xs)
+= def. length na ++ ?
+length x + length (concat xs)
+= IH 
+length x + sum (map length xs)
+= def. sum
+sum(length x : map length xs)
+= def. map
+sum(map length (x:xs))
+= def. dot-notation
+sum . map length (x:xs)
+
+
+
+
+
+
+Defs:
+
+length [] = 0
+length (x:xs) = 1 + length xs
+
+dot-notation
+
+f . g  = f(g)
+
+concat [] = []
+concat (x:xs) = x ++ concat xs
+
+map f [] = []
+map f (x:xs) = f x : map f xs
+
+sum [] = 0
+sum (x:xs) = x + sum xs
+
+Proof: length . concat   = sum . map length
+
+Base case:
+length . concat []
+= def. dot
+length(concat [])
+= def concat
+=  length []
+= 0
+= def sum
+sum([])
+= def map
+sum(map length [])
+= def dot
+sum . map length []
+
+Induction case:
+IH = length . concat xss =  sum . map length xss
+IH' = length(concat xss) = sum(map length xss)
+
+length . concat (xs:xss)
+= def dot
+length(concat (xs:xss))
+= def concat
+length(xs ++ concat xss)
+= vorige opdracht
+length xs + length (concat xss)
+= IH
+length xs + sum(map length xss)
+= def sum
+sum(length xs : map length xss)
+= def map
+sum(map length (xs:xss))
+= def dot
+sum . map length (xs:xss)
+
+
+Defs:
+
+sum [] = 0
+sum (x:xs) = x  + sum xs
+
+(++) [] ys = ys
+(++) (x:xs) ys = x : (xs ++ ys)
+
+Proof: sum (xs ++ ys) = sum xs + sum ys
+
+IH = sum (xs ++ ys) = sum xs + sum ys
+
+Base case:
+sum ([] ++ ys)
+= def concat
+sum(ys)
+= def +
+0 + sum ys
+= def sum
+sum [] + sum ys
+
+Induction case:
+sum((x:xs) ++ ys)
+= def concat
+sum (x : (xs ++ ys))
+= def sum
+x + sum (xs ++ ys)
+= IH
+x + (sum xs + sum ys)
+= associative +
+(x + sum xs) + sum ys
+= def 2 sum
+sum (x:xs) + sum ys
+
+Defs:
+sum [] = 0
+sum (x:xs) = x + sum xs
+
+concat [] = []
+concat (x:xs) = x ++ concat xs
+
+map f [] = []
+map f (x:xs) = f x : map f xs
+
+Proof: sum . concat = sum . map sum
+IH = sum(concat (xs)) = sum(map sum (xs))
+
+sum(concat []) = sum(map sum [])
+
+Base case:
+sum . concat []
+= dot notation
+sum(concat [])
+= def concat
+sum []
+= def sum
+0
+= def sum
+sum []
+= def sum
+sum(map sum [])
+= dot notation
+sum . map sum []
+
+
+IH = sum(concat (xs)) = sum(map sum (xs))
+Induction case:
+sum . concat (x:xs) 
+= def dot
+sum(concat (x:xs))
+= def concat 2
+sum(x ++ concat xs)
+= vorige opdracht
+sum x + sum (concat xs)
+= IH
+sum(x + sum (map sum xs))
+= def sum
+sum(sum x : map sum xs)
+= def map
+sum(map sum (x:xs))
+
+
+
+
+Definitions:
+map f [] = []
+map f (x:xs) = f x : map f xs
+
+concat [] = []
+concat (x:xs) = x ++ concat xs
+
+map f . concat = concat . map (map f)  -- Hard!
+
+Base case:
+
+map f . concat [] = concat . map (map f) []
+
+
+map f . concat []
+= def dot
+map f (concat [])
+= def concat
+map f []
+= def map 
+[]
+= def map
+concat (map (map f) [])
+= def dot
+concat . map (map f [])
+
+Induction case:
+IH = map f . concat xss = concat . map (map f) xss
+IH = map f (concat xss) = concat (map (map f) xss)
+
+map f . concat (xs:xss) 
+= def dot
+map f (concat (xs:xss))
+= def concat
+map f (xs ++ concat xss)
+= distribution wet
+map f xs ++ map f (concat xss)
+= IH xss
+map f xs ++ concat (map (map f) xss)
+= def concat
+concat((map f) xs : map (map f) xss)
+= def map 
+concat (map (map f) (xs:xss))
+= def dot
+concat . map (map f) (xs:xss)
+
+
+Lemma's:
+add n Zero = n 
+add n (Succ m) = Succ (add n m)
+
+
+add n m = add m n
+
+Base case:
+
+add Zero m = add m Zero
+
+add Zero m
+= def add
+m
+= def add
+add m Zero
+
+Induction case:
+
+add Succ() m = add m Zero
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

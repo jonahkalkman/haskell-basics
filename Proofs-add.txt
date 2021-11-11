@@ -1,0 +1,79 @@
+-- Defs:
+add Zero m = m
+add (Succ n) m = Succ(add n m)
+
+-- Lemma's:
+add n Zero = n
+add n (Succ m) = Succ (add n m)
+
+-- Lemma 1 = Proof: 
+add n Zero = n
+
+-- Base case:
+add Zero Zero
+= def 1 add
+Zero
+= equal
+Zero
+
+I.H = add (Succ m) Zero = Succ m
+
+-- Induction case:
+add (Succ m) Zero
+= def add 2
+Succ(add m Zero)
+= equal
+Succ(add m Zero)
+= def add 2
+add (Succ m) Zero
+= IH
+Succ m
+
+
+-- Lemma 2 - Proof: add n (Succ m) = Succ (add n m)
+
+-- Base case
+add Zero (Succ m) 
+= def 1 add
+(Succ m)
+= equal
+Succ m
+= add def 1
+Succ (add Zero m)
+
+
+-- Inductive case: n = Succ x
+I.H = add x (Succ m) = Succ (add x m)
+
+add (Succ x) (Succ m)
+= def 2 add
+Succ(add x (Succ m))
+= I.H
+Succ(Succ(add x m))
+= def 2 add
+Succ (add (Succ x) m)
+
+
+Proof: add n m = add m n
+
+-- Base case:
+add Zero m 
+= Lemma 1
+add m Zero
+
+-- Inductive case - n = Succ x
+I.H = add x m = add m x
+
+add (Succ x) m
+= def 2 add
+Succ(add x m)
+= I.H
+Succ(add m x)
+= Lemma 2 
+add m (Succ x)
+
+
+
+
+
+
